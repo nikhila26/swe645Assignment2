@@ -25,7 +25,7 @@ pipeline{
         stage("deploying on k8")
 	{
 		steps{
-			sh 'kubectl set image deployment/assignment2-deployment container-0=nikhila/studentsurveyform:latest -n default'
+			sh 'kubectl set image deployment/assignment2-deployment container-0=nikhila10/studentsurveyform:latest -n default'
 			sh 'kubectl rollout restart deploy assignment2-deployment -n default'
 		}
 	} 
