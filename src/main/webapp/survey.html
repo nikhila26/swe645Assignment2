@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Survey</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        .required::after {
+            content: " *";
+            color: red;
+        }
+    </style>
+</head>
+<body class="w3-light-grey">
+
+    <header class="w3-container w3-blue w3-center w3-padding-32">
+        <h1>Student Survey Form</h1>
+    </header>
+
+    <div class="w3-container w3-white w3-margin w3-padding">
+        <form id="surveyForm">
+            <label class="required">First Name:</label>
+            <input type="text" name="first_name" class="w3-input w3-border" pattern="^[A-Za-z]+$" title="First name should only contain alphabets" required>
+
+            <label class="required">Last Name:</label>
+            <input type="text" name="last_name" class="w3-input w3-border" pattern="^[A-Za-z]+$" title="Last name should only contain alphabets" required>
+
+            <label class="required">Email:</label>
+            <input type="email" name="email" class="w3-input w3-border" required>
+
+            <label class="required">Phone:</label>
+            <input type="tel" name="phone" class="w3-input w3-border" pattern="^\d{10}$" title="Phone number must be exactly 10 digits" required>
+
+            <label class="required">Street Address:</label>
+            <input type="text" name="address" class="w3-input w3-border" required>
+
+            <label class="required">City:</label>
+            <input type="text" name="city" class="w3-input w3-border" required>
+
+            <label class="required">State:</label>
+            <input type="text" name="state" class="w3-input w3-border" required>
+
+            <label class="required">ZIP Code:</label>
+            <input type="text" name="zip" class="w3-input w3-border" pattern="^\d+$" title="ZIP code must contain only digits" required>
+
+            <label class="required">Date of Survey:</label>
+            <input type="date" name="survey_date" class="w3-input w3-border" required>
+
+            <br>
+
+            <label><strong>What did you like most about the campus?</strong></label><br>
+            <input type="checkbox" name="liked[]" value="Students"> Students <br>
+            <input type="checkbox" name="liked[]" value="Location"> Location <br>
+            <input type="checkbox" name="liked[]" value="Campus"> Campus <br>
+            <input type="checkbox" name="liked[]" value="Atmosphere"> Atmosphere <br>
+            <input type="checkbox" name="liked[]" value="Dorm Rooms"> Dorm Rooms <br>
+            <input type="checkbox" name="liked[]" value="Sports"> Sports <br>
+
+            <br>
+
+            <label><strong>How did you hear about us?</strong></label><br>
+            <input type="radio" name="source" value="Friends"> Friends <br>
+            <input type="radio" name="source" value="Television"> Television <br>
+            <input type="radio" name="source" value="Internet"> Internet <br>
+            <input type="radio" name="source" value="Other"> Other <br>
+
+            <br>
+
+            <label><strong>How likely are you to recommend us to others?</strong></label>
+            <select name="recommend" class="w3-select w3-border">
+                <option value="" disabled selected>-- Select an option --</option>
+                <option value="Very Likely">Very Likely</option>
+                <option value="Likely">Likely</option>
+                <option value="Unlikely">Unlikely</option>
+            </select>
+
+            <br><br>
+
+            <label><strong>Enter at least 10 Raffle Numbers (comma-separated, 1-100) (Optional):</strong></label>
+            <input type="text" id="raffle" name="raffle" class="w3-input w3-border">
+            
+            <label><strong>Additional Comments:</strong></label>
+            <textarea name="comments" class="w3-input w3-border"></textarea>
+
+            <br>
+
+            <button type="submit" class="w3-button w3-blue w3-margin-top">Submit</button>
+            <button type="reset" class="w3-button w3-red w3-margin-top">Cancel</button>
+
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("surveyForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const firstName = document.querySelector("input[name='first_name']");
+            const lastName = document.querySelector("input[name='last_name']");
+            if (!firstName.value.match(/^[A-Za-z]+$/)) {
+                alert("First name should only contain alphabets.");
+                return;
+            }
+            if (!lastName.value.match(/^[A-Za-z]+$/)) {
+                alert("Last name should only contain alphabets.");
+                return;
+            }
+
+            const phoneInput = document.querySelector("input[name='phone']");
+            if (!phoneInput.value.match(/^\d{10}$/)) {
+                alert("Phone number must be exactly 10 digits.");
+                return;
+            }
+
+            const zipInput = document.querySelector("input[name='zip']");
+            if (!zipInput.value.match(/^\d+$/)) {
+                alert("ZIP code must contain only digits.");
+                return;
+            }
+
+            const raffleInput = document.getElementById("raffle").value.trim();
+            if (raffleInput) {
+                const raffleNumbers = raffleInput.split(',').map(num => num.trim());
+                
+                if (raffleNumbers.length < 10) {
+                    alert("Please enter at least 10 raffle numbers.");
+                    return;
+                }
+                
+                if (!raffleNumbers.every(num => num.match(/^([1-9][0-9]?|100)$/))) {
+                    alert("Please enter valid numbers between 1 and 100.");
+                    return;
+                }
+            }
+
+            alert("Form submitted successfully!");
+        });
+    </script>
+
+</body>
+</html>
